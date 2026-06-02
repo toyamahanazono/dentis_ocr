@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>模擬Dentis 患者登録</title>
+  <link rel="stylesheet" href="./mock-dentis.css">
+</head>
+<body>
+  <main class="dentis">
+    <header class="topbar">
+      <button class="back" type="button">‹</button>
+      <h1>患者登録</h1>
+      <button id="openOcr" class="ocr-button" type="button">OCR</button>
+    </header>
+
+    <nav class="tabs" aria-label="患者登録タブ">
+      <button class="active" type="button" data-tab="patient">患者情報</button>
+      <button type="button" data-tab="insurance">保険</button>
+      <button type="button" data-tab="public">公費</button>
+      <button type="button" data-tab="care">介護</button>
+    </nav>
+
+    <section id="patient" class="tab-panel active">
+      <div class="form-grid two">
+        <label>姓 <span>必須</span><input></label>
+        <label>名 <span>必須</span><input></label>
+        <label>セイ <span>必須</span><input></label>
+        <label>メイ <span>必須</span><input></label>
+      </div>
+      <fieldset class="radio-row">
+        <legend>性別 <span>必須</span></legend>
+        <label><input type="radio" name="gender" checked> 男性</label>
+        <label><input type="radio" name="gender"> 女性</label>
+      </fieldset>
+      <label class="date-line">生年月日 <span>必須</span><input placeholder="YYYY-MM-DD"></label>
+      <hr>
+      <div class="form-grid two">
+        <label>郵便番号<input placeholder="106-6222"></label>
+        <label>電話番号<input></label>
+      </div>
+    </section>
+
+    <section id="insurance" class="tab-panel">
+      <p class="notice">保険情報を登録する場合は、「必須」項目を入力してください</p>
+      <div class="form-grid wide">
+        <label>保険者番号 <span>必須</span><input></label>
+        <label>患者負担割合 <span>必須</span><select><option>3割</option><option>2割</option><option>1割</option></select></label>
+        <label>記号<input></label>
+        <label>番号 <span>必須</span><input></label>
+        <label>枝番<input></label>
+      </div>
+      <fieldset class="radio-row">
+        <legend>続柄 <span>必須</span></legend>
+        <label><input type="radio" name="rel" checked> 本人</label>
+        <label><input type="radio" name="rel"> 家族</label>
+      </fieldset>
+      <label>被保険者名 <span>必須</span><input></label>
+      <div class="form-grid two">
+        <label>資格取得日 <span>必須</span><input placeholder="YYYY-MM-DD"></label>
+        <label>有効期限<input placeholder="YYYY-MM-DD"></label>
+      </div>
+    </section>
+
+    <section id="public" class="tab-panel">
+      <p class="notice">公費を登録する場合は、「必須」項目を入力してください</p>
+      <div class="form-grid two">
+        <label>公費負担者番号 <span>必須</span><input></label>
+        <label>受給者番号 <span>必須</span><input></label>
+      </div>
+      <label>公費名<select><option>該当公費なし</option><option>子ども医療</option><option>障害者医療</option></select></label>
+      <div class="form-grid three">
+        <label>資格取得日 <span>必須</span><input placeholder="YYYY-MM-DD"></label>
+        <label>有効期限<input placeholder="YYYY-MM-DD"></label>
+        <label>患者負担割合 <span>必須</span><input></label>
+      </div>
+    </section>
+
+    <section id="care" class="tab-panel">
+      <p class="notice">介護保険を登録する場合は、「必須」項目を入力してください</p>
+      <div class="form-grid three">
+        <label>介護保険者番号 <span>必須</span><input></label>
+        <label>介護保険被保険者番号 <span>必須</span><input></label>
+        <label>自己負担率 <span>必須</span><select><option>1割</option><option>2割</option><option>3割</option></select></label>
+      </div>
+      <div class="form-grid two">
+        <label>要介護度 <span>必須</span><select><option>要支援1</option><option>要支援2</option><option>要介護1</option><option>要介護2</option><option>要介護3</option><option>要介護4</option><option>要介護5</option></select></label>
+        <label>介護認定日 <span>必須</span><input placeholder="YYYY-MM-DD"></label>
+        <label>介護申請日<input placeholder="YYYY-MM-DD"></label>
+        <label>認定有効期間（開始日） <span>必須</span><input placeholder="YYYY-MM-DD"></label>
+        <label>認定有効期間（終了日） <span>必須</span><input placeholder="YYYY-MM-DD"></label>
+        <label>減免割合<input value="0"></label>
+      </div>
+    </section>
+  </main>
+
+  <script src="./dentis-ocr-panel.js"></script>
+  <script>
+    document.querySelectorAll(".tabs button").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".tabs button").forEach((item) => item.classList.remove("active"));
+        document.querySelectorAll(".tab-panel").forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        document.getElementById(button.dataset.tab).classList.add("active");
+      });
+    });
+    document.getElementById("openOcr").addEventListener("click", () => window.DentisOCR.open());
+  </script>
+</body>
+</html>
